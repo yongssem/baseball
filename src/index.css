@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'DungGeunMo';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2102@1.1/DungGeunMo.woff') format('woff');
+  font-display: swap;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Pretendard Variable', Pretendard, system-ui, -apple-system, sans-serif;
+  background: #FFF8F0;
+  color: #2D2D2D;
+}

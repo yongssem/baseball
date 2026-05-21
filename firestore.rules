@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 문제 풀 캐시: 누구나 읽기, 쓰기는 인증된 사용자만
+    match /quiz_pools/{poolId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // 게임 기록: 본인만
+    match /games/{gameId} {
+      allow read: if request.auth != null
+        && resource.data.playerId == request.auth.uid;
+      allow create: if request.auth != null
+        && request.resource.data.playerId == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    // AI 호출 로그: 쓰기만 (관리자만 읽기 - 콘솔에서 처리)
+    match /classes/{classId}/ai_logs/{logId} {
+      allow create: if request.auth != null;
+      allow read, update, delete: if false;
+    }
+  }
+}

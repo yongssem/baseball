@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    font-family: 'Pretendard', system-ui, sans-serif;
+    color: #2D2D2D;
+    background-color: #FFF8F0;
+  }
+}

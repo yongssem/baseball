@@ -1,8 +1,41 @@
+import { useState } from 'react'
+import Home from './pages/Home'
+import Game from './pages/Game'
+import Result from './pages/Result'
+
 export default function App() {
+  const [screen, setScreen] = useState('home')
+  const [settings, setSettings] = useState(null)
+  const [lastGame, setLastGame] = useState(null)
+
+  if (screen === 'home') {
+    return (
+      <Home
+        onStart={(s) => {
+          setSettings(s)
+          setScreen('game')
+        }}
+      />
+    )
+  }
+
+  if (screen === 'game') {
+    return (
+      <Game
+        settings={settings}
+        onFinish={(game) => {
+          setLastGame(game)
+          setScreen('result')
+        }}
+      />
+    )
+  }
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-bg text-text">
-      <h1 className="font-score text-4xl text-coral mb-2">뚝딱야구</h1>
-      <p className="text-sm opacity-70">Phase 1 부트스트랩 완료</p>
-    </div>
+    <Result
+      game={lastGame}
+      onRestart={() => setScreen('game')}
+      onHome={() => setScreen('home')}
+    />
   )
 }
